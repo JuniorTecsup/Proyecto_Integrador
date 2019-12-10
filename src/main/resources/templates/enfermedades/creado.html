@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<link rel="stylesheet" 
+        href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css"/>
+<script 
+        src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
+<title>Lista:: CRUD</title>
+</head>
+<body>
+      
+      <div class="container">
+      
+      <h2 align="center">Mediinf</h2>
+        
+          <ul class="nav nav-pills">
+            <li class="nav-item"><a class="nav-link active" href="/enfermedades/listauser" style="margin-right: 10px;">Inicio</a></li>
+            <span th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')} or (${#authorization.expression('hasRole(''ROLE_USER'')')} and ${#httpServletRequest.remoteUser==user.correo})"><li class="nav-item"><a class="nav-link" href="/userForm" style="margin-right: 10px;" >Cuenta</a></li></span>
+            <li class="nav-item"><a class="nav-link" href="/personlist/1" style="margin-right: 10px;" >CuentaPersonal</a></li>
+            <li class="nav-item"><a class="nav-link" href="/enfermedades/lista" style="margin-right: 10px;">Enfermedades</a></li>
+            <li class="nav-item"><a class="nav-link" href="/userForm" style="margin-right: 10px;">Usuarios</a></li>
+          </ul>
+      
+          <div class="panel-heading"><h3>Dato registrado con exito</h3></div>
+          <table class="table table-striped">
+             <thead>
+                  <tr>
+                      <th>Nombre</th>
+                      <th>Medicamento General</th>
+                      <th>Medicamento de Laboratorio</th>
+                      <th>Medicamento Natural</th>
+                      <th>Sintomas</th>
+                      <th>Apto</th>
+                      
+                  </tr>
+             </thead>
+             <tbody>
+                  <tr>
+                      <td data-th-text="${enfermedad.nombre}"></td>
+                      <td data-th-text="${enfermedad.medicamento_g}"></td>
+                      <td data-th-text="${enfermedad.medicamento_l}"></td> 
+                      <td data-th-text="${enfermedad.medicamento_n}"></td>
+                      <td data-th-text="${enfermedad.sintomas}"></td>
+                      <td data-th-text="${enfermedad.apto}"></td>                 
+                  </tr>  
+                  
+             </tbody>
+          </table>
+          <a class="btn btn-info" href="/enfermedades/lista">Volver</a>
+      </div>
+</body>
+</html>

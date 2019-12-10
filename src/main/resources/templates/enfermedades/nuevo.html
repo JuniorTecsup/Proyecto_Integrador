@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<link rel="stylesheet" 
+        href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css"/>
+<script 
+        src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
+<title>Mediinf Registrar</title>
+
+</head>
+<body>
+
+
+     <div class="container">
+     
+     <h2 align="center">Mediinf</h2>
+        
+          <ul class="nav nav-pills">
+            <li class="nav-item"><a class="nav-link active" href="/enfermedades/listauser" style="margin-right: 10px;">Inicio</a></li>
+            <span th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')} or (${#authorization.expression('hasRole(''ROLE_USER'')')} and ${#httpServletRequest.remoteUser==user.correo})"><li class="nav-item"><a class="nav-link" href="/userForm" style="margin-right: 10px;" >Cuenta</a></li></span>
+            <li class="nav-item"><a class="nav-link" href="/personlist/1" style="margin-right: 10px;" >CuentaPersonal</a></li>
+            <li class="nav-item"><a class="nav-link" href="/enfermedades/lista" style="margin-right: 10px;">Enfermedades</a></li>
+            <li class="nav-item"><a class="nav-link" href="/userForm" style="margin-right: 10px;">Usuarios</a></li>
+          </ul>
+         <h2>Registar</h2>
+     
+     
+        <form name="form1"action="#" th:action="@{/enfermedades/insertar}" th:object="${enfermedad}" method="post" enctype="multipart/form-data" >
+        
+        <div class="form-row">
+        <div class="form-group col-md-6">
+             <label for="nombre">Nombre</label>         
+                  <input type="text" class="form-control" name="nombre" id="nombre" required="required" />
+             </div>
+        </div>
+        
+        <div class="form-row">
+        <div class="form-group col-md-6">
+             <label for="nombre">Medicina General</label>
+                  <input type="text" class="form-control" name="medicamento_g" id="medicamento_g" required="required" />
+        </div>
+        </div>
+        
+        <div class="form-row">
+        <div class="form-group col-md-6">
+             <label for="nombre">Medicina de Laboratorio</label>
+                  <input type="text" class="form-control" name="medicamento_l" id="medicamento_l" required="required" />
+        </div>
+        </div>
+        
+        <div class="form-row">
+        <div class="form-group col-md-6">
+             <label for="nombre">Medicina Natural</label>
+             
+                  <input type="text" class="form-control" name="medicamento_n" id="medicamento_n" required="required" />
+        </div>
+        </div>
+        
+        <div class="form-row">
+        <div class="form-group col-md-6">
+             <label for="nombre">Sintomas</label>
+                  <input type="text" class="form-control" name="sintomas" id="sintomas" required="required" />                 
+        </div>
+        </div>
+        
+        <div class="form-row">
+        <div class="form-group col-md-6">
+             <label for="nombre">Apto</label>
+                  <input type="text" class="form-control" name="apto" id="apto" required="required" />             
+        </div>
+        </div>
+        
+        <div class="form-row">
+        <div class="form-group col-md-6">
+             <label for="nombre">Imagen Enfermedad</label>          
+             <input type="file" class="form-control" name="enfermedad_img" id="enfermedad_img" th:value="*{enfermedad_img}" />       
+        </div>
+        </div>
+        
+       
+        
+        <div class="form-row">
+        <div class="form-group col-md-6">
+             <label for="nombre">Imagen M.Generico</label>
+             <input type="file" class="form-control" name="medi_g" id="medi_g" th:field="*{medi_g}" />       
+        </div>
+        </div>
+        
+        <div class="form-row">
+        <div class="form-group col-md-6">
+             <label for="nombre">Imagen M.Laboratorio</label>
+             <input type="file" class="form-control" name="medi_l" id="medi_l" th:field="*{medi_l}" />             
+        </div>
+        </div>
+        
+        <div class="form-row">
+        <div class="form-group col-md-6">
+             <label for="nombre">Imagen M.Natural</label>
+             <input type="file" class="form-control" name="medi_n" id="medi_n" th:field="*{medi_n}" />       
+        </div>
+        </div>
+        
+        
+       <div class="form-row">
+        <div class="form-group col-md-6">           
+                 <button type="submit" class="btn btn-default">Crear</button>
+        </div>
+        </div>
+        
+        <div class="form-row">
+        <div class="form-group col-md-6">           
+                <a class="btn btn-warning" href="/enfermedades/lista">Volver</a>
+        </div>
+        </div>
+        
+        
+        </form>
+        
+        </div>
+</body>
+</html>

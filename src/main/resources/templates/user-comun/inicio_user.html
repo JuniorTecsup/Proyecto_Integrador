@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head> 
+   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/> 
+    
+    <!--JQUERY-->
+	<script 
+ 		src="https://code.jquery.com/jquery-3.3.1.min.js"
+ 			integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+ 			crossorigin="anonymous"></script>
+    <!-- DATA TABLE -->
+	<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+	<script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/css/bootstrap.css">	
+	<link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">
+
+	<script type="text/javascript">
+	    $(document).ready(function() {
+	        //Asegurate que el id que le diste a la tabla sea igual al texto despues del simbolo #
+	        $('#userList').DataTable({
+	            "language": {
+	                "url": "//cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
+	              },"lengthMenu": [ 5, 10, 20 , 50 ]
+	            });
+	    } );
+	</script>
+    
+  </head>
+
+  <body>
+
+    <div class="container">
+
+      <div class="masthead">
+        <h2 align="center">Mediinf</h2>
+        <nav>
+          <ul class="nav nav-justified">
+            <li class="active"><a href="/enfermedades/listauser" style="margin-right: 10px;">Inicio</a></li>
+            <li><a href="/personlist/1" style="margin-right: 10px;" >CuentaPersonal</a></li>
+            <li><a href="/enfermedades/lista" style="margin-right: 10px;">Enfermedades</a></li>
+            <span><li><a href="/userForm" style="margin-right: 10px;">Usuarios</a></li></span>
+            <li>
+			<a href="#" th:href="@{/logout}"><span> Cerrar sesión  </span><span class="float-right"><i class="fas fa-sign-out-alt"></i></span></a>				   	
+			</li>
+          </ul>
+        </nav>
+      </div>
+      
+      <table id="userList" class="table table-bordered table-hover table-striped">
+      <thead class="thead-light">
+      <th>Enfermedad</th>
+      <th></th>
+      <th>Descripcion</th>
+      </thead>
+      <tbody>
+      <tr th:each="enfermedad: ${enfermedades}">
+     
+        <h3><td th:text="${enfermedad.nombre}"></td></h3>
+        <th><img th:src="@{/img/enfermedades/} + ${enfermedad.enfermedad_img}" style="margin-right: 25px;" width="250" height="250"/></th>
+        <td>Esta enfermedad ataca comun que nos a pasado a todos. <br>
+        <a th:href="@{'/enfermedades/vermas/{id}'(id=${enfermedad.id})}"><button>Ver medicamentos</button></a>
+        </td>  
+    
+      
+
+
+          
+    
+      </tbody>
+      </table>
+      </div>
+
+
+    
+  </body>
+</html>

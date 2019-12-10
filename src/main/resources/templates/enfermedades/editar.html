@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<link rel="stylesheet" 
+        href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css"/>
+<script 
+        src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
+<title>Editar</title>
+</head>
+<body>
+     <div class="container">
+     <div class="page-header">
+         <h1>Editar enfermedad</h1>
+     </div>
+        <form action="#" th:action="@{/enfermedades/actualizar}" th:object="${enfermedad}" method="post">
+           <input type="hidden" id="id" name="id" th:field="*{id}" />
+        
+        
+        <div class="form-row">
+        <div class="form-group col-md-6">
+             <label for="nombre">Nombre</label>
+            
+                  <input type="text" class="form-control" name="nombre" id="nombre" th:field="*{nombre}" required="required" />
+                  <p th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}" class="alert alert-danger" />
+             
+             </div>
+        </div>
+             
+        <div class="form-row">
+        <div class="form-group col-md-6">
+             <label for="nombre">Medicina General</label>
+                  <input type="text" class="form-control" name="medicamento_g" id="medicamento_g" th:field="*{medicamento_g}" required="required" />
+                  <p th:if="${#fields.hasErrors('medicamento_g')}" th:errors="*{medicamento_g}" class="alert alert-danger" />
+        </div>
+        </div>
+        
+        <div class="form-row">
+        <div class="form-group col-md-6">
+             <label for="nombre">Medicina de Laboratorio</label>
+                  <input type="text" class="form-control" name="medicamento_l" id="medicamento_l" th:field="*{medicamento_l}" required="required" />
+        </div>
+        </div>
+        
+        <div class="form-row">
+        <div class="form-group col-md-6">
+             <label for="nombre">Medicina Natural</label>
+             
+                  <input type="text" class="form-control" name="medicamento_n" id="medicamento_n" th:field="*{medicamento_n}" required="required" />
+        </div>
+        </div>
+        
+        <div class="form-row">
+        <div class="form-group col-md-6">
+             <label for="nombre">Sintomas</label>
+                  <input type="text" class="form-control" name="sintomas" id="sintomas" th:field="*{sintomas}" required="required" />                 
+        </div>
+        </div>
+        
+        <div class="form-row">
+        <div class="form-group col-md-6">
+             <label for="nombre">Apto</label>
+                  <input type="text" class="form-control" name="apto" id="apto" th:field="*{apto}" required="required" />             
+        </div>
+        </div>
+        
+        <div class="form-row">
+        <div class="form-group col-md-6">
+             <label for="nombre">Imagen Enfermedad</label>          
+             <input type="file" class="form-control" name="enfermedad_img" id="enfermedad_img" th:value="*{enfermedad_img}" />       
+             <img th:src="@{/img/enfermedades/} + ${enfermedad.enfermedad_img}" style="margin-right: 25px;" width="100" height="100"/>
+        </div>
+        </div>
+        
+       
+        
+        <div class="form-row">
+        <div class="form-group col-md-6">
+             <label for="nombre">Imagen Generico</label>
+             <input type="file" class="form-control" name="medi_g" id="medi_g" th:field="*{medi_g}" />       
+             <img th:src="@{/img/medicamentos/} + ${enfermedad.medi_g}" style="margin-right: 25px;" width="100" height="100"/>
+        </div>
+        </div>
+        
+        <div class="form-row">
+        <div class="form-group col-md-6">
+             <label for="nombre">Imagen Laboratorio</label>
+             <input type="file" class="form-control" name="medi_l" id="medi_l" th:field="*{medi_l}" />       
+             <img th:src="@{/img/medicamentos/} + ${enfermedad.medi_l}" style="margin-right: 25px;" width="100" height="100"/>
+        </div>
+        </div>
+        
+        <div class="form-row">
+        <div class="form-group col-md-6">
+             <label for="nombre">Imagen Natural</label>
+             <input type="file" class="form-control" name="medi_n" id="medi_n" th:field="*{medi_n}" />       
+             <img th:src="@{/img/medicamentos/} + ${enfermedad.medi_n}" style="margin-right: 25px;" width="100" height="100"/>
+        </div>
+        </div>
+        
+         
+        
+        <div class="form-row">
+        <div class="form-group col-md-6">           
+                 <button type="submit" class="btn btn-default">Actualizar</button>
+        </div>
+        </div>
+        </form>
+        </div>
+</body>
+</html>

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<title>Mediinf-form</title>
+
+   <!--JQUERY-->
+	
+	
+	<link rel="stylesheet"
+		href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+	<script
+		src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+	
+	<!-- Los iconos tipo Solid de Fontawesome-->
+	<link rel="stylesheet"
+		href="https://use.fontawesome.com/releases/v5.0.8/css/solid.css">
+	<script src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"></script>
+	
+	<!-- Nuestro css-->
+	<link rel="stylesheet" type="text/css" href="static/css/user-form.css"
+		th:href="@{/css/user-form.css}">
+
+	<!-- DATA TABLE -->
+	<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+	<script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/css/bootstrap.css">	
+	<link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">
+
+	<script type="text/javascript">
+	    $(document).ready(function() {
+	        //Asegurate que el id que le diste a la tabla sea igual al texto despues del simbolo #
+	        $('#userList').DataTable();
+	    } );
+	    //Esta pagina es la de Gestionar e Informacion del usuario
+	</script>
+
+</head> 			
+<body>
+<div th:with="disableFields=!${editMode} and ${#authorization.expression('hasRole(''ROLE_USER'')')}">
+
+<form class="form" role="form" autocomplete="off"  th:object="${userForm}" th:action="${signup}?@{/signup}:(${editMode} ?@{/editUser} :@{/userForm})" method="post">
+	<!--Es necesario para poder pasar la validacion del Model-->
+	<input class="form-control" type=hidden th:field="${userForm.id}"  th:if="${editMode}">
+	<input class="form-control" type=hidden name="clave" value="xxxx" th:if="${editMode}">
+	<!--quita el comentario si quieres mantener la validacion @NotBlank del campo confirmPassword
+		 <input class="form-control" type=hidden name="confirmPassword" value="xxxx" th:if="${editMode}">
+	 -->
+	
+	<div class="form-group row">
+		<label class="col-lg-3 col-form-label form-control-label">Nombres</label>
+		<div class="col-lg-9">
+			<input class="form-control" type="text" th:field="${userForm.nombres}" th:disabled="${disableFields}">
+			<div class="alert-danger" th:if="${#fields.hasErrors('nombres')}" th:errors="*{nombres}">¿Cual es tu nombre?</div>		
+		</div>
+	</div>
+	
+	<div class="form-group row">
+		<label class="col-lg-3 col-form-label form-control-label">Apellidos</label>
+		<div class="col-lg-9">
+		<input class="form-control" type="text" th:field="${userForm.apellidos}" th:disabled="${disableFields}">
+		<div class="alert-danger" th:if="${#fields.hasErrors('apellidos')}" th:errors="*{apellidos}">¿Cual es tu apellido?</div>	
+		</div>
+	</div>
+	
+	<div class="form-group row">
+		<label class="col-lg-3 col-form-label form-control-label">DNI</label>
+		<div class="col-lg-9">
+		<input class="form-control" type="text" th:field="${userForm.dni}" th:disabled="${disableFields}">
+		<div class="alert-danger" th:if="${#fields.hasErrors('dni')}" th:errors="*{dni}">¿Cual es tu apellido?</div>	
+		</div>
+	</div>
+	
+	<div class="form-group row">
+		<label class="col-lg-3 col-form-label form-control-label">Edad</label>
+		<div class="col-lg-9">
+		<input class="form-control" type="text" th:field="${userForm.edad}" th:disabled="${disableFields}">
+		<div class="alert-danger" th:if="${#fields.hasErrors('edad')}" th:errors="*{edad}">¿Cual es tu apellido?</div>	
+		</div>
+	</div>
+	
+	<div class="form-group row">
+		<label class="col-lg-3 col-form-label form-control-label">Alergia</label>
+		<div class="col-lg-9">
+		<input class="form-control" type="text" th:field="${userForm.alergia}" th:disabled="${disableFields}">
+		<div class="alert-danger" th:if="${#fields.hasErrors('alergia')}" th:errors="*{alergia}">¿Cual es tu apellido?</div>	
+		</div>
+	</div>
+	
+	<div class="form-group row">
+		<label class="col-lg-3 col-form-label form-control-label">Correo</label>
+		<div class="col-lg-9">
+			<input class="form-control" type="email" th:field="${userForm.correo}" th:disabled="${disableFields}">
+			<div class="alert-danger" th:if="${#fields.hasErrors('correo')}" th:errors="*{correo}">Crea un correo, debe contener un @</div>
+		</div>
+	</div>
+
+	<div class="form-group row">
+		<label th:text="Roles" class="col-lg-3 col-form-label form-control-label"></label>
+		<div class="col-lg-9">
+			<select class="form-control" th:size="${signup}?1:3" th:field="${userForm.roles}" th:disabled="${disableFields}">
+				<option th:each="role :${roles}" th:value="${role.id}" th:text="${role.name}">
+				</option>
+			</select>
+			
+		</div>
+	</div> 
+	
+	<div class="form-group row" th:if="${editMode==null or editMode==false}">
+		<label class="col-lg-3 col-form-label form-control-label">Contraseña</label>
+		<div class="col-lg-9">
+			<input class="form-control" type="password" th:field="${userForm.clave}" th:disabled="${disableFields}">
+			<div class="alert-danger" th:if="${#fields.hasErrors('clave')}" th:errors="*{clave}">Escribe una clave que puedas recordar</div>
+		</div>
+	</div>
+	<div class="form-group row" th:if="${editMode==null or editMode==false}">
+		<label class="col-lg-3 col-form-label form-control-label">Confirmar</label>
+		<div class="col-lg-9">
+			<input class="form-control" type="password" th:field="${userForm.confirmClave}" th:disabled="${disableFields}" >
+			<div class="alert-danger" th:if="${#fields.hasErrors('confirmClave')}" th:errors="*{confirmClave}">No se parecen</div>
+		</div> 
+	</div>
+	<div class="form-group row">
+		<div class="col-lg-12 text-center">
+			<a class="btn btn-secondary" th:href="@{'/userForm/cancel'}">Cancelar</a>
+			<button type="button" class="btn btn-secondary" data-toggle="modal" th:if="${editMode}" data-target="#changePasswordModal">Cambiar clave</button>
+			<input type="submit" class="btn btn-primary"
+				value="Save Changes" th:value="${editMode}?'Guardar Usuario':'Crear usuario'">
+		</div>
+	</div>
+	<div class="alert alert-danger text-center" th:if="${formErrorMessage}" th:text="${formErrorMessage}">Error</div>
+	<div class="alert alert-success text-center d-none" id="formSuccess" th:if="${editMode}" >Success Mensaje</div>
+</form>
+</div>
+</body>
+</html>

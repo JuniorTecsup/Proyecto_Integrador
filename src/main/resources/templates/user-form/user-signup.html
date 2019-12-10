@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<title>Registrarse</title>
+	
+	
+	
+	
+
+</head>
+<body>
+	<div class="container" style="font-size: 15px;line-height: 22.2px;letter-spacing: 0.022em;font-weight: 600;margin-left: 103px;">
+		<div class="mx-auto col-sm-8 main-section" >
+			<div class="card" style="margin-top: 25px;">
+				<div class="card-header">
+					<h4>Usuario nuevo</h4>
+				</div>
+				<div class="card-body">
+					<div th:include="user-form/user-form.html" th:remove="tag" ></div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

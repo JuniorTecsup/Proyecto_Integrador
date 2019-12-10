@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+ <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<link rel="stylesheet" 
+        href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css"/>
+
+
+<!--JQUERY-->
+	<script 
+ 		src="https://code.jquery.com/jquery-3.3.1.min.js"
+ 			integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+ 			crossorigin="anonymous"></script>
+    <!-- DATA TABLE -->
+	<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+	<script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
+	
+	<link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">
+
+	<script type="text/javascript">
+	    $(document).ready(function() {
+	        //Asegurate que el id que le diste a la tabla sea igual al texto despues del simbolo #
+	        $('#userList').DataTable({
+	            "language": {
+	                "url": "//cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
+	              },"lengthMenu": [ 5, 10, 20 , 50 ]
+	            });
+	    } );
+	</script>
+
+</head>
+<body>
+      
+      <div class="container">
+      
+      
+        <h2 align="center">Mediinf</h2>
+        
+          <ul class="nav nav-pills">
+            <li class="nav-item"><a class="nav-link active" href="/enfermedades/listauser" style="margin-right: 10px;">Inicio</a></li>
+            <span th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')} or (${#authorization.expression('hasRole(''ROLE_USER'')')} and ${#httpServletRequest.remoteUser==user.correo})"><li class="nav-item"><a class="nav-link" href="/userForm" style="margin-right: 10px;" >Cuenta</a></li></span>
+            <li class="nav-item"><a class="nav-link" href="/personlist/1" style="margin-right: 10px;" >CuentaPersonal</a></li>
+            <li class="nav-item"><a class="nav-link" href="/enfermedades/lista" style="margin-right: 10px;">Enfermedades</a></li>
+            <li class="nav-item"><a class="nav-link" href="/userForm" style="margin-right: 10px;">Usuarios</a></li>
+            <li>
+			<a href="#" th:href="@{/logout}"><span> Cerrar sesión  </span><span class="float-right"><i class="fas fa-sign-out-alt"></i></span></a>				   	
+			</li>
+          </ul>
+      
+      
+      
+          <div class="panel-heading"><h4>Lista de Enfermedades</h4></div>
+          <table class="table table-striped" id="userList">
+             <thead>
+                  <tr>
+                      <th>Id</th>
+                      <th>Nombre</th>
+                      <th>Medicamento General</th>
+                      <th>Medicamento de Laboratorio</th>
+                      <th>Medicamento Natural</th>
+                      <th>Sintomas</th>
+                      <th>Apto</th>
+                      <th>Editar</th>
+                      <th>Eliminar</th>
+                  </tr>
+             </thead>
+             <tbody>
+                  <tr data-th-each="enfermedad : ${enfermedades}">
+                      <td data-th-text="${enfermedad.id}"></td>
+                      <td data-th-text="${enfermedad.nombre}"></td>
+                      <td data-th-text="${enfermedad.medicamento_g}"></td>
+                      <td data-th-text="${enfermedad.medicamento_l}"></td> 
+                      <td data-th-text="${enfermedad.medicamento_n}"></td>
+                      <td data-th-text="${enfermedad.sintomas}"></td>
+                      <td data-th-text="${enfermedad.apto}"></td> 
+                      
+                      <td>
+                          <a th:href="@{'/enfermedades/editar/{id}'(id=${enfermedad.id})}">
+                               <span class="fa-stack">
+                                 <i class="glyphicon glyphicon-edit"></i>
+                               </span>
+                           </a>
+                      </td>
+                      
+                      <td>
+                           <a th:href="@{'/enfermedades/borrar/{id}'(id=${enfermedad.id})}">
+                               <span class="fa-stack">
+                                 <i class="glyphicon glyphicon-trash"></i>
+                               </span>
+                           </a>
+                      </td>
+                      
+                  </tr>  
+             </tbody>
+          </table>
+     
+      <br/>
+      <a class="btn btn-info" href="/enfermedades/nuevo">Registrar nueva enfermedad</a><br>
+       </div>
+</body>
+</html>
+
